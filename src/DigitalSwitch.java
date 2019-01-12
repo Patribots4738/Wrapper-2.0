@@ -1,14 +1,16 @@
+package wrapper;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 
 public class DigitalSwitch {
 
 	DigitalInput digitalSwitch;
-	ToggleButton toggleSwitch;
+	TogglableButton toggleSwitch;
 	
 	public DigitalSwitch(int channel) {
 	
 		digitalSwitch = new DigitalInput(channel);
-		toggleSwitch = new ToggleButton();
+		toggleSwitch = new TogglableButton();
 	}
 	
 
@@ -17,7 +19,7 @@ public class DigitalSwitch {
 	 * @return The toggle's state.
 	 */
 	public boolean getDownToggle(){
-		return toggleSwitch.getDownToggle(digitalSwitch.get());
+		return toggleSwitch.toggleOnPress(digitalSwitch.get());
 	}
 	
 	/**
@@ -25,7 +27,7 @@ public class DigitalSwitch {
 	 * @return Returns true on the button's release.
 	 */
 	public boolean getUp(){
-		return toggleSwitch.getUp(digitalSwitch.get());
+		return toggleSwitch.isUp(digitalSwitch.get());
 	}
 	
 	/**
@@ -33,7 +35,7 @@ public class DigitalSwitch {
 	 * @return Returns true on the button press.
 	 */
 	public boolean getDown(boolean state){
-		return toggleSwitch.getDown(digitalSwitch.get());
+		return toggleSwitch.isDown(digitalSwitch.get());
 	}
 	
 	/**
