@@ -1,11 +1,14 @@
 package wrapper;
 
+import utils.Mathd;
+import interfaces.MotorGroup;
+
 public class Drive {
 
-    SparkMaxMotorGroup LeftMotors;
-    SparkMaxMotorGroup RightMotors;
+    MotorGroup LeftMotors;
+    MotorGroup RightMotors;
 
-    public Drive(SparkMaxMotorGroup LeftMotors, SparkMaxMotorGroup RightMotors) {
+    public Drive(MotorGroup LeftMotors, MotorGroup RightMotors) {
 
         this.LeftMotors = LeftMotors;
         this.RightMotors = RightMotors;
@@ -56,7 +59,7 @@ public class Drive {
 
         boolean turnInPlace = false;
 
-        if (throttle <= 0.05 && throttle >= -0.05) {
+        if (Mathd.isBetween(throttle, 0.05, -0.05)) {
 
             turnInPlace = true;
 

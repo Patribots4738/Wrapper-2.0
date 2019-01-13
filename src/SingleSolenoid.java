@@ -13,9 +13,9 @@ public class SingleSolenoid {
 
     }
 
-    public void setTo(boolean on) {
+    public void setTo(boolean state) {
 
-        isOn = on;
+        isOn = state;
 
         sol.set(isOn);
 
