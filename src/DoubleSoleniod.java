@@ -1,48 +1,47 @@
 package wrapper;
 
-/**
- * Senpai says hi! -Stephen
- */
-public class DoubleSoleniod extends edu.wpi.first.wpilibj.DoubleSolenoid{
-	
-	TogglableButton toggledState = new TogglableButton();
-	TogglableButton holdButton = new TogglableButton();
-	
-	/**
-	 * @param moduleNumber
-	 * @param forwardChannel
-	 * @param reverseChannel
-	 */
-	public DoubleSoleniod(int moduleNumber, int forwardChannel, int reverseChannel) {
-		super(moduleNumber, forwardChannel, reverseChannel);
-	}
-	
-	/**
-	 * @param forwardChannel
-	 * @param reverseChannel
-	 */
-	public DoubleSoleniod(int forwardChannel, int reverseChannel) {
-		super(forwardChannel, reverseChannel);
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
+public class DoubleSoleniod {
+
+	edu.wpi.first.wpilibj.DoubleSolenoid DoubleSol;
+
+	public DoubleSoleniod(int port1, int port2) {
+
+		DoubleSol = new edu.wpi.first.wpilibj.DoubleSolenoid(port1, port2);
+
 	}
 
-	public void onHold(boolean state){
-		 if(holdButton.isDown(state)){
-			 this.set(Value.kForward);
-		 }
-		 else if(holdButton.isUp(state)){
-			 this.set(Value.kReverse);
-		 }
+	public void activateForwardChannel() {
+
+		DoubleSol.set(Value.kForward);
+
 	}
-	
-	public void toggleDirection(boolean state){
-		if(toggledState.isDown(state)){
-			if(toggledState.toggleOnPress(state)){
-				this.set(Value.kForward);
-			} 
-			else{
-				this.set(Value.kReverse);
-			}
+
+	public void activateReverseChannel() {
+
+		DoubleSol.set(Value.kReverse);
+
+	}
+
+	public void toggleWithState(boolean toggleState) {
+
+		if (toggleState) {
+
+			activateForwardChannel();
+
+		} else {
+
+			activateReverseChannel();
+
 		}
+
 	}
-	
+
+	public void deactivate() {
+
+		DoubleSol.set(Value.kOff);
+
+	}
+
 }

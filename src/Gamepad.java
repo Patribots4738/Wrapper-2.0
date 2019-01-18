@@ -6,7 +6,7 @@ public class Gamepad {
 
 	Joystick joystick;
 	int port;
-	TogglableButton buttons[];
+	public TogglableButton buttons[];
 
 	public Gamepad(int port) {
 		this.port = port;

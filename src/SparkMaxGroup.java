@@ -7,7 +7,7 @@ import interfaces.MotorGroup;
 
 public class SparkMaxGroup implements MotorGroup{
 
-    ArrayList<CANSparkMax> motors = new ArrayList<>();
+   public ArrayList<CANSparkMax> motors = new ArrayList<>();
 
     public SparkMaxGroup(int... deviceIDs) {
         for (int deviceID : deviceIDs) {

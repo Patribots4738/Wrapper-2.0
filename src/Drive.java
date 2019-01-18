@@ -71,19 +71,19 @@ public class Drive {
 
         if (turnInPlace) {
 
-            parabolicArcade(throttle, turning, 1);
+            parabolicArcade(throttle, turning, 0.75);
 
         } else {
 
-            double angleToMaintain = (Math.PI * -turning) / 3;
+            double angleToMaintain = (Math.PI * -turning) / Math.PI;
 
-            double speedDifference = Math.atan(angleToMaintain) * throttle;
+            double speedDifference = Math.atan(angleToMaintain) * throttle * Math.signum(throttle);
 
-            double leftMotorInput = -throttle + speedDifference;
-            double rightMotorInput = -throttle - speedDifference;
+            double leftMotorInput = throttle - speedDifference;
+            double rightMotorInput = throttle + speedDifference;
 
             LeftMotors.control(leftMotorInput);
-            RightMotors.control(rightMotorInput);
+            RightMotors.control(-rightMotorInput);
 
         }
 
