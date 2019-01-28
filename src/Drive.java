@@ -28,10 +28,10 @@ public class Drive {
     public void parabolicArcade(double throttle, double turning, double speedMultiplier) {
 
         double leftMotorInput = (throttle + turning) * Math.abs((throttle + turning)) * speedMultiplier;
-        double rightMotorInput = -((throttle - turning) * Math.abs((throttle - turning)) * speedMultiplier);
+        double rightMotorInput = (throttle - turning) * Math.abs((throttle - turning)) * speedMultiplier;
 
         LeftMotors.control(leftMotorInput);
-        RightMotors.control(rightMotorInput);
+        RightMotors.control(-rightMotorInput);
 
     }
 
@@ -55,38 +55,74 @@ public class Drive {
 
     }
 
-    public void kindaCurvature(double throttle, double turning) {
+    public void curvature(double throttle, double turning) {
 
-        boolean turnInPlace = false;
+        boolean turnInPlace = Mathd.isBetween(throttle, 0.07, -0.07);
 
-        if (Mathd.isBetween(throttle, 0.05, -0.05)) {
+        double linearParabolicConverter = 1 - Math.pow(Math.abs(throttle),3);
 
-            turnInPlace = true;
-
-        } else {
-
-            turnInPlace = false;
-
-        }
+        double wideTurnConverter = 1 - Math.pow(Math.abs(turning),3);
 
         if (turnInPlace) {
 
-            parabolicArcade(throttle, turning, 0.75);
+            ultraParabolic(throttle, turning, 4);
 
-        } else {
+        }
+        
+        if(!turnInPlace) {
 
-            double angleToMaintain = (Math.PI * -turning) / Math.PI;
+            double convertedThrottle = throttle * linearParabolicConverter;
 
-            double speedDifference = Math.atan(angleToMaintain) * throttle * Math.signum(throttle);
+            double convertedTurning = -turning * wideTurnConverter;
 
-            double leftMotorInput = throttle - speedDifference;
-            double rightMotorInput = throttle + speedDifference;
+            double angleToMaintain = (Math.PI * convertedTurning) / Math.PI;
+
+            double speedDifference = Math.atan(angleToMaintain) * convertedThrottle;
+
+            double leftMotorInput = convertedThrottle - speedDifference;
+            double rightMotorInput = convertedThrottle + speedDifference;
 
             LeftMotors.control(leftMotorInput);
             RightMotors.control(-rightMotorInput);
 
         }
 
+        /*
+        for those of you looking at this and wondering what the hell all this math means,
+        a lot of it is tuning, so here is the original math
+        so we dont get confused
+
+        double angleToMaintain = (Math.PI * turning) / Math.PI;
+
+        double speedDifference = Math.atan(angleToMaintain) * throttle;
+
+        double leftMotorInput = throttle - speedDifference;
+        double rightMotorInput = throttle + speedDifference;
+
+        there if you need it 
+        Zach 2019-1-20
+        */
+
     }
 
+    public void cheesy(double throttle, double turning){//this is kinda experimental...
+
+            double leftMotorInput = (throttle * Math.abs(turning)) - turning;
+            double rightMotorInput = (throttle * Math.abs(turning)) + turning;
+
+            LeftMotors.control(leftMotorInput);
+            RightMotors.control(-rightMotorInput);
+
+    }
+
+    public void ultraParabolic(double throttle, double turning, int ridiculousFactor){//this is for use with curvature drive 
+
+        double leftMotorInput = (throttle + turning) * Math.pow(Math.abs(throttle + turning), ridiculousFactor -1);
+        double rightMotorInput = (throttle - turning) * Math.pow(Math.abs(throttle - turning), ridiculousFactor -1);
+
+        LeftMotors.control(leftMotorInput);
+        RightMotors.control(-rightMotorInput);
+
+    }
+    
 }

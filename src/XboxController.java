@@ -13,7 +13,7 @@ public class XboxController extends Gamepad {
 	}
 
 	public Vector getRightStick() {
-		return new Vector(this.getAxis(4), -this.getAxis(5));
+		return new Vector(this.getAxis(4), this.getAxis(5));
 	}
 
 	public double getRightTrigger() {

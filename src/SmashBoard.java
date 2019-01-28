@@ -11,15 +11,52 @@ public class SmashBoard {
 
     }
 
+    public static boolean receiveBoolean(String origin){
+
+            return SmartDashboard.getBoolean(origin, false);
+
+    }
+   
+
     public static void sendDouble(String destination, double duble) {// no, that is not misspelled
 
         SmartDashboard.putNumber(destination, duble);
 
     }
 
+    public static double receiveDouble(String origin){
+
+        return SmartDashboard.getNumber(origin, 0);
+
+    }    
+
     public static void sendString(String destination, String string) {
 
         SmartDashboard.putString(destination, string);
+
+    }
+
+    public static String receiveString(String origin){
+
+        return SmartDashboard.getString(origin, "");
+
+    }    
+
+    public static String getDriveMode(){
+
+        return SmartDashboard.getString("drivemode", "curvature");
+
+    }
+
+    public static String receiveKeys1(){
+ 
+        return SmartDashboard.getString("keyBinds1", "throttle:1,turning:4,tankLeft:1,tankRight:5,forward:0,wheels:6,ramp:7");
+
+    }
+
+    public static String receiveKeys2(){
+
+        return SmartDashboard.getString("keyBinds2", "elevatorUp:4,elevatorDown:5,arm:2,slapIntake:1,intakeSuck:8,intakeBlow:9,eject:3");
 
     }
 
@@ -53,13 +90,14 @@ public class SmashBoard {
 
         } else {
 
-            double angleToMaintain = (Math.PI * -turning) / 3;
+            double angleToMaintain = (Math.PI * -turning * Math.abs(turning * 0.75)) / Math.PI;
 
-            double speedDifference = Math.atan(angleToMaintain) * throttle;
+            double speedDifference = Math.atan(angleToMaintain);
+
+            speedDifference *=  (Math.abs(speedDifference) * throttle * Math.signum(throttle));//this line preforms some modifications 
 
             leftMotorInput = throttle - speedDifference;
             rightMotorInput = throttle + speedDifference;
-
         }
 
         double[] leftIsFirst = { leftMotorInput, rightMotorInput };
