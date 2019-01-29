@@ -50,7 +50,7 @@ public class SmashBoard {
 
     public static String receiveKeys1(){
  
-        return SmartDashboard.getString("keyBinds1", "throttle:1,turning:4,tankLeft:1,tankRight:5,forward:0,wheels:6,ramp:7");
+        return SmartDashboard.getString("keyBinds1", "throttle:1,turning:4,tankLeft:1,tankRight:5,forward:0,wheels:6,ramp:7,elevatorUp:4,elevatorDown:5,arm:2,slapIntake:1,intakeSuck:8,intakeBlow:9,eject:3");
 
     }
 

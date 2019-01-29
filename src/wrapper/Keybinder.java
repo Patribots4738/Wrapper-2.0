@@ -35,6 +35,8 @@ public class Keybinder {// this is a dedicated class for deep space 2019
 
 	}
 
+
+	//all of these need to be redone
 	public double getThrottle() {
 		
 		return xbox.getAxis(dictionary.get("throttle"));
@@ -59,7 +61,7 @@ public class Keybinder {// this is a dedicated class for deep space 2019
 
 	}
 
-	public boolean getArmToggle() {
+	public boolean getArmsToggle() {
 
 		return xbox.getToggle(dictionary.get("arm"));
 
@@ -109,13 +111,13 @@ public class Keybinder {// this is a dedicated class for deep space 2019
 
 	public boolean getElevatorUp(){
 
-		return xbox.getButton(dictionary.get("elevatorUp"));
+		return xbox.getToggle(dictionary.get("elevatorUp"));
 
 	}
 
 	public boolean getElevatorDown(){
 
-		return xbox.getButton(dictionary.get("elevatorDown"));
+		return xbox.getToggle(dictionary.get("elevatorDown"));
 
 	}
 
